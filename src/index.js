@@ -14,14 +14,21 @@ const interval = period => (type, sink) => {
   });
 };
 
-const forEach = fn => source => {
-  let talkBack;
-  source(0, (t, d) => {
-    if (t === 0) talkBack = d;
-    if (t === 1) fn(d);
-    if (t === 1 || t === 0) talkBack(1);
-  });
-};
+// let canceller;
+// const c = interval(1000);
+// c(0, (type, payload) => {
+//    // on init, grap the canceller to use later
+//    if (type === 0) {
+//      canceller = payload;
+//    }
+//   if (type === 1) {
+//      console.log(`It's the final countdown: ${payload}`);
+//   }
+// });
+
+// setTimeout(() => {
+//   canceller(2);
+// }, 5000);
 
 const map = mapFn => callbag => (type, sink) => {
   if (type !== 0) return;
@@ -34,6 +41,22 @@ const map = mapFn => callbag => (type, sink) => {
     }
   });
 };
+
+// let canceller;
+// // the chaining works inside out, so the values from interval will flow into map
+// const c = map((i) => 4 - i)(interval(1000));
+// c(0, (type, payload) => {
+//    if (type === 0) {
+//      canceller = payload;
+//    }
+//   if (type === 1) {
+//      console.log(`It's the final countdown: ${payload}`);
+//   }
+// });
+
+// setTimeout(() => {
+//   canceller(2);
+// }, 5000);
 
 const take = n => source => (type, sink) => {
   if (type !== 0) return;
@@ -65,6 +88,24 @@ const take = n => source => (type, sink) => {
     }
   });
 };
+
+// const c = map((i) => 4 - i)(take(5)(interval(1000)));
+// c(0, (type, payload) => {
+//   if (type === 1) {
+//      console.log(`It's the final countdown: ${payload}`);
+//   }
+// });
+
+const forEach = fn => source => {
+  let talkBack;
+  source(0, (t, d) => {
+    if (t === 0) talkBack = d;
+    if (t === 1) fn(d);
+    if (t === 1 || t === 0) talkBack(1);
+  });
+};
+
+// forEach((data) => console.log(`It's the final countdown: ${data}`))(map((i) => 4 - i)(take(5)(interval(1000))));
 
 const pipe = (...operators) => {
   let r = operators[0];
