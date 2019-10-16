@@ -1,4 +1,3 @@
-// https://phillipgreenii.github.io/introdunction_into_callbags/
 const interval = period => (type, sink) => {
   if (type !== 0) return;
 
