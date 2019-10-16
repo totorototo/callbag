@@ -1,0 +1,28 @@
+{
+  "name": "support-tools",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/runtime": "^7.1.2",
+    "eslint": "^5.6.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "nodemon": "^1.18.4"
+  },
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js",
+    "build": "babel src --out-dir dist",
+    "serve": "node dist/index.js",
+    "lint": "eslint --quiet src"
+  }
+}
